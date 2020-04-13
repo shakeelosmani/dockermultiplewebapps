@@ -22,7 +22,7 @@ services:
 
     webserver:
       build: ./webserver
-      container_name: webserver
+      container_name: multiwebserver
       restart: always
       ports: 
         - "80:80"
