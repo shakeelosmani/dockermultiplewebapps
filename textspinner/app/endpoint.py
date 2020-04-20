@@ -11,17 +11,10 @@ def options(s):
 
 	return [s]
 
-@app.route("/spin/<message>", defaults={'message': ''}, methods=['GET'])
+@app.route("/spin/<message>")
 def index(message):
   try:
-    chunk = re.split('(\{[^\}]+\}|[^\{\}]+)', message)
+    return message
 
-    opt_lists = [options(frag) for frag in chunk]
-
-    text = ''
-    for spec in more_itertools.random_product(*opt_lists):
-      text = text + (''.join(spec))
-
-    return text
   except Exception as e:
     return jsonify(str(e))
