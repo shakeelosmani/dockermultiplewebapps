@@ -22,6 +22,6 @@ def index(message):
     for spec in more_itertools.random_product(*opt_lists):
       text = text + (''.join(spec))
 
-    return print(text)
+    return jsonify(text)
   except Exception as e:
     return jsonify(str(e))
