@@ -1,28 +1,37 @@
 version: "3.7"
 
-services: 
+services:
 
     pyapp1:
       build: ./pyapp1
       container_name: flask1
       restart: always
-      environment: 
+      environment:
         - APP_NAME=FlaskHello
-      expose: 
+      expose:
         - 8080
-    
+
     pyapp2:
       build: ./pyapp2
       container_name: flask2
       restart: always
-      environment: 
+      environment:
         - APP_NAME=FlaskNameParser
-      expose: 
+      expose:
+        - 8080
+
+    textspinner:
+      build: ./textspinner
+      container_name: flasktextspinner
+      restart: always
+      environment:
+        - APP_NAME=FlaskTextSpinner
+      expose:
         - 8080
 
     webserver:
       build: ./webserver
       container_name: multiwebserver
       restart: always
-      ports: 
+      ports:
         - "80:80"

@@ -1,25 +1,33 @@
 version: "3.7"
 
-services: 
+services:
 
     pyapp1:
       image: pyapp1
       build: .
-      environment: 
+      environment:
         - APP_NAME=FlaskHello
-      expose: 
+      expose:
         - 8080
-    
+
     pyapp2:
       image: pyapp2
       build: .
-      environment: 
+      environment:
         - APP_NAME=FlaskNameParser
-      expose: 
+      expose:
+        - 8080
+
+    textspinner:
+      image: textspinner
+      build: .
+      environment:
+        - APP_NAME=FlaskTextSpinner
+      expose:
         - 8080
 
     webserver:
       image: webserver
       build: .
-      ports: 
+      ports:
         - "80:80"
