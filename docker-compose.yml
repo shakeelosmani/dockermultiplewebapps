@@ -1,37 +1,50 @@
-version: "3.7"
+version: "2.2"
 
 services:
 
-    pyapp1:
-      build: ./pyapp1
-      container_name: flask1
-      restart: always
-      environment:
-        - APP_NAME=FlaskHello
-      expose:
-        - 8080
+  pyapp1:
+    build: ./pyapp1
+    networks: 
+      - pyappnetwork
+    container_name: flask1
+    restart: always
+    environment:
+      - APP_NAME=FlaskHello
+    expose:
+      - 8080
 
-    pyapp2:
-      build: ./pyapp2
-      container_name: flask2
-      restart: always
-      environment:
-        - APP_NAME=FlaskNameParser
-      expose:
-        - 8080
+  pyapp2:
+    build: ./pyapp2
+    networks: 
+      - pyappnetwork
+    container_name: flask2
+    restart: always
+    environment:
+      - APP_NAME=FlaskNameParser
+    expose:
+      - 8080
 
-    textspinner:
-      build: ./textspinner
-      container_name: flasktextspinner
-      restart: always
-      environment:
-        - APP_NAME=FlaskTextSpinner
-      expose:
-        - 8080
+  textspinner:
+    build: ./textspinner
+    networks: 
+      - pyappnetwork
+    container_name: flasktextspinner
+    restart: always
+    environment:
+      - APP_NAME=FlaskTextSpinner
+    expose:
+      - 8080
 
-    webserver:
-      build: ./webserver
-      container_name: multiwebserver
-      restart: always
-      ports:
-        - "80:80"
+  webserver:
+    build: ./webserver
+    networks: 
+      - pyappnetwork
+    container_name: multiwebserver
+    restart: always
+    ports:
+      - "80:80"
+
+networks: 
+  pyappnetwork:
+    external: 
+      name: nat
