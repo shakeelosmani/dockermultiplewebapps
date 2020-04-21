@@ -11,9 +11,10 @@ def options(s):
 
 	return [s]
 
-@app.route("/spin/<message>")
-def index(message):
+@app.route("/spin", method='POST')
+def index():
   try:
+    message = request.form['message']
     chunk = re.split('(\{[^\}]+\}|[^\{\}]+)', message)
 
     opt_lists = [options(frag) for frag in chunk]
