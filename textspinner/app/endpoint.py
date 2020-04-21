@@ -1,4 +1,5 @@
 from flask import jsonify
+from flask import request
 from app import app
 import re
 import sys
@@ -11,10 +12,11 @@ def options(s):
 
 	return [s]
 
-@app.route("/spin", method='POST')
+@app.route("/spin", methods=['POST'])
 def index():
   try:
-    message = request.form['message']
+    inp = request.json
+    message = inp["message"]
     chunk = re.split('(\{[^\}]+\}|[^\{\}]+)', message)
 
     opt_lists = [options(frag) for frag in chunk]
