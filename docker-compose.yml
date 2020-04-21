@@ -4,7 +4,7 @@ services:
 
   pyapp1:
     build: ./pyapp1
-    networks: 
+    networks:
       - pyappnetwork
     container_name: flask1
     restart: always
@@ -15,7 +15,7 @@ services:
 
   pyapp2:
     build: ./pyapp2
-    networks: 
+    networks:
       - pyappnetwork
     container_name: flask2
     restart: always
@@ -26,7 +26,7 @@ services:
 
   textspinner:
     build: ./textspinner
-    networks: 
+    networks:
       - pyappnetwork
     container_name: flasktextspinner
     restart: always
@@ -35,16 +35,27 @@ services:
     expose:
       - 8080
 
+  textspinner:
+    build: ./addressparser
+    networks:
+      - pyappnetwork
+    container_name: flaskaddressparser
+    restart: always
+    environment:
+      - APP_NAME=FlaskAddressParser
+    expose:
+      - 8080
+
   webserver:
     build: ./webserver
-    networks: 
+    networks:
       - pyappnetwork
     container_name: multiwebserver
     restart: always
     ports:
       - "80:80"
 
-networks: 
+networks:
   pyappnetwork:
-    external: 
+    external:
       name: nat

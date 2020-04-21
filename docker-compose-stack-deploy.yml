@@ -26,6 +26,14 @@ services:
       expose:
         - 8080
 
+    textspinner:
+      image: addressparser
+      build: .
+      environment:
+        - APP_NAME=FlaskAddressParser
+      expose:
+        - 8080
+
     webserver:
       image: webserver
       build: .
