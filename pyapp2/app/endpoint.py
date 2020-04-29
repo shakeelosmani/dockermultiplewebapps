@@ -2,7 +2,7 @@ from flask import jsonify
 from app import app
 from nameparser import HumanName
 
-@app.route("/parse/<name>")
+@app.route("/parsename/<name>")
 def parse(name):
   try:
     parsed_name = HumanName(name)
