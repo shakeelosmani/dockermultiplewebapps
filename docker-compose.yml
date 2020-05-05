@@ -45,6 +45,15 @@ services:
       - APP_NAME=FlaskAddressParser
     expose:
       - 8080
+  
+  tabulajavarunnable:
+    build: ./tabulajavarunnable
+    networks:
+      - pyappnetwork
+    container_name: tabulajavarunnable
+    restart: always    
+    expose:
+      - 8080
 
   webserver:
     build: ./webserver
