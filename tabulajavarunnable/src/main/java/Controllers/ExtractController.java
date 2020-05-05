@@ -31,7 +31,6 @@ public class ExtractController {
 
         if (jsonInput!=null) {
             CustomErrorMessageHandler errorMessageHandler = new CustomErrorMessageHandler();
-            Boolean errorDetected = false;
 
             //1. Make sure base64 content is not null or empty
             if (jsonInput.getBase64Data()==null || jsonInput.getBase64Data().isEmpty()) {
@@ -39,7 +38,8 @@ public class ExtractController {
                 errorMessageHandler.message = "Missing mandatory parameter. The request body must contain a key 'base64Data' and base64 format.\n" +
                         "It is the base64 format of the content of the PDF file from which tables are to be extracted.\n";
 
-                errorDetected = true;
+                return ResponseEntity.badRequest().body(errorMessageHandler);
+
             }
 
             //2. Check if content sent is of type PDF
@@ -62,7 +62,6 @@ public class ExtractController {
                 errorMessageHandler.fieldName = "file content error";
                 errorMessageHandler.message = "File content is either corrupt or is not of PDF type : " + e.toString();
 
-                errorDetected = true;
 
                 // 1. Close PDF document
                 try {
@@ -76,14 +75,12 @@ public class ExtractController {
                 // 2. Delete file
                 try {
                     Files.deleteIfExists(pdfTempFile.toPath());
-                } catch (IOException e3){
+                } catch (IOException e3) {
                     e.printStackTrace();
                 }
             }
 
-            if (errorDetected) {
-                return ResponseEntity.badRequest().body(errorMessageHandler);
-            }
+
         }
 
         Extract extract = new Extract(jsonInput, pdfTempFile, pdfDocument);
